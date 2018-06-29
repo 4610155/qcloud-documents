@@ -402,129 +402,172 @@ virtual TICWhiteboardManager* getTICWhiteBoardManager() = 0;
 开发者可以通过getTICWhiteBoardManager()获得白板管理类里面封装好的方法，也可以直接调用BoardSDK.h里面的接口对白板进行操作，BoardSDK详见 [白板SDK文档](/document/product/680/17884) 。
 
 ```C++
-	> TICWhiteboardManager.h
-	/**
-	* \brief 获得白板窗口句柄
-	*/
-	virtual HWND getRenderWindow() = 0;
-	
-	/**
-	* \brief 清空白板数据
-	*/
-	virtual void clearWhiteBoard() = 0;
-	
-	/**
-	* \brief 使用画板工具
-	* \param tool  画板工具
-	*/
-	virtual void useTool(BoardTool tool) = 0;
-	
-	/**
-	* \brief 设置线宽
-	* \param width  宽度
-	*/
-	virtual void setWidth(uint32_t width) = 0;
-	
-	/**
-	* \brief 设置颜色
-	* \param rgba  颜色RGBA值
-	*/
-	virtual void setColor(uint32_t rgba) = 0;
-	
-	/**
-	* \brief 设置填充
-	* \param fill  是否填充
-	*/
-	virtual void setFill(bool fill) = 0;
-	
-	/**
-	* \brief 撤销
-	*/
-	virtual void undo() = 0;
-	
-	/**
-	* \brief 重做
-	*/
-	virtual void redo() = 0;
-	
-	/**
-	* \brief 删除
-	*/
-	virtual void remove() = 0;
-	
-	/**
-	* \brief 清除白板
-	*/
-	virtual void clear() = 0;
-	
-	/**
-	* \brief 清除涂鸦
-	*/
-	virtual void clearDraws() = 0;
-	
-	/**
-	* \brief 设置白板背景
-	* \param url  背景图地址
-	* \param pageID 白板ID，默认为当前白板
-	*/
-	virtual void useBackground(const wchar_t *url, const char *pageID = nullptr) = 0;
-	
-	/**
-	* \brief 设置白板背景色
-	* \param rgba  颜色RGBA值
-	*/
-	virtual void setBackgroundColor(uint32_t rgba) = 0;
-	
-	/**
-	* \brief 设置全局背景色
-	* \param rgba  颜色RGBA值
-	*/
-	virtual void setAllBackgroundColor(uint32_t rgba) = 0;
-	
-	/**
-	* \brief 拉取离线数据
-	*/
-	virtual void getBoardData() = 0;
+> TICWhiteboardManager.h
+/**
+* \brief 获得白板窗口句柄
+*/
+virtual HWND getRenderWindow() = 0;
+
+/**
+* \brief 清空白板数据
+*/
+virtual void clearWhiteBoard() = 0;
+
+/**
+* \brief 使用画板工具
+* \param tool  画板工具
+*/
+virtual void useTool(BoardTool tool) = 0;
+
+/**
+* \brief 设置线宽
+* \param width  宽度
+*/
+virtual void setWidth(uint32_t width) = 0;
+
+/**
+* \brief 设置颜色
+* \param rgba  颜色RGBA值
+*/
+virtual void setColor(uint32_t rgba) = 0;
+
+/**
+* \brief 设置填充
+* \param fill  是否填充
+*/
+virtual void setFill(bool fill) = 0;
+
+/**
+* \brief 撤销
+*/
+virtual void undo() = 0;
+
+/**
+* \brief 重做
+*/
+virtual void redo() = 0;
+
+/**
+* \brief 删除
+*/
+virtual void remove() = 0;
+
+/**
+* \brief 清除白板
+*/
+virtual void clear() = 0;
+
+/**
+* \brief 清除涂鸦
+*/
+virtual void clearDraws() = 0;
+
+/**
+* \brief 设置白板背景
+* \param url  背景图地址
+* \param pageID 白板ID，默认为当前白板
+*/
+virtual void useBackground(const wchar_t *url, const char *pageID = nullptr) = 0;
+
+/**
+* \brief 设置白板背景色
+* \param rgba  颜色RGBA值
+*/
+virtual void setBackgroundColor(uint32_t rgba) = 0;
+
+/**
+* \brief 设置全局背景色
+* \param rgba  颜色RGBA值
+*/
+virtual void setAllBackgroundColor(uint32_t rgba) = 0;
+
+/**
+* \brief 拉取离线数据
+*/
+virtual void getBoardData() = 0;
+
+/**
+* \brief 获取当前页码
+* \return 当前页码
+*/
+virtual uint32_t getPageIndex() = 0;
+
+/**
+* \brief 获取总页数
+* \return 总页数
+*/
+virtual uint32_t getPageCount() = 0;
+
+/**
+* \brief 刷新页码
+*/
+virtual void refreshPageInfo() = 0;
+
+/**
+* \brief 页码跳转
+* \param pageIndex  跳转的页码
+*/
+virtual void gotoPage(uint32_t pageIndex) = 0;
+
+/**
+* \brief 跳转上一页
+*/
+virtual void gotoLastPage() = 0;
+
+/**
+* \brief 跳转下一页
+*/
+virtual void gotoNextPage() = 0;
+
+/**
+* \brief 插入新的一页
+*/
+virtual void insertPage() = 0;
+
+/**
+* \brief 删除当前页
+*/
+virtual void deletePage() = 0;
 ```
 
-#### 4.8 IM相关操作
+### 4.8 IM相关操作
 
 IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只封装了一些常用接口：
 
 ```C++
-	/**
-	* \brief 发送C2C文本消息
-	* \param identifier   消息接收者
-	* \param msg  发送内容
-	* \param OnSuccess 发送成功回调
-	* \param OnError   发送失败回调
-	*/
-	virtual void sendC2CTextMsg(const char * identifier, const char * msg) = 0;
-	
-	/**
-	* \brief 发送群文本消息
-	* \param msg  发送内容
-	* \param OnSuccess 发送成功回调
-	* \param OnError   发送失败回调
-	*/
-	virtual void sendGroupTextMsg(const char * msg) = 0;
-	
-	/**
-	* \brief 发送C2C自定义消息
-	* \param identifier   消息接收者
-	* \param msg  发送内容
-	* \param OnSuccess 发送成功回调
-	* \param OnError   发送失败回调
-	*/
-	virtual void sendC2CCustomMsg(const char * identifier, const char * msg) = 0;
-	
-	/**
-	* \brief 发送群组自定义消息
-	* \param msg  发送内容
-	* \param OnSuccess 发送成功回调
-	* \param OnError   发送失败回调
-	*/
-	virtual void sendGroupCustomMsg(const char * msg) = 0;
+/**
+* \brief 发送C2C文本消息
+* \param identifier   消息接收者
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
+*/
+virtual void sendC2CTextMsg(const char * identifier, const char * msg) = 0;
+
+/**
+* \brief 发送群文本消息
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
+*/
+virtual void sendGroupTextMsg(const char * msg) = 0;
+
+/**
+* \brief 发送C2C自定义消息
+* \param identifier   消息接收者
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
+*/
+virtual void sendC2CCustomMsg(const char * identifier, const char * msg) = 0;
+
+/**
+* \brief 发送群组自定义消息
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
+*/
+virtual void sendGroupCustomMsg(const char * msg) = 0;
 ```
 课堂内成员在调用以上方法发送消息时，会触发IM事件，如果在加入课堂前设置了IM事件监听代理 `IClassroomIMListener`，一端发送IM消息时，另一端就可以在课堂内IM消息回调对应方法中得到通知:
 
@@ -584,7 +627,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 ```
 
-前4个代理方法，分别对应了前面4个消息发送的方法，对应类型的消息会在对应类型的代理方法中回调给课堂内所有成员（发消息本人除外），其他端收到后可以将消息展示在界面上。接下来`onRecvGroupSystemMsg`监听了课堂内房间解散消息，`onSendMsg`和`onSendWBData`则对应发普通消息和IM消息是否成功的回调。
+前4个代理方法，分别对应了前面4个消息发送的方法，对应类型的消息会在对应类型的代理方法中回调给课堂内所有成员（发消息本人除外），其他端收到后可以将消息展示在界面上。接下来`onRecvGroupSystemMsg`监听了课堂内群组系统消息，`onSendMsg`和`onSendWBData`则对应发普通消息和IM消息是否成功的回调。
 
 ### 4.9 音视频相关操作
 
@@ -675,8 +718,24 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 	* \param data		用户自定义数据的指针
 	*/
 	virtual void onMemStatusChange(ilive::E_EndpointEventId event_id, const ilive::Vector<ilive::String> &ids, void* data) = 0;
+	
+	/**
+	* \brief 			成员加入房间
+	* \param identifier		加入房间成员id列表
+	*/
+	virtual void onMemberJoin(const char ** identifier, uint32_t num) = 0;
 
+	/**
+	* \brief 			成员退出房间
+	* \param identifier		退出房间成员id列表
+	*/
+	virtual void onMemberQuit(const char ** identifier, uint32_t num) = 0;
+
+	/**
+	* \brief 课堂房间被销毁
+	*/
+	virtual void onClassroomDestroy() = 0;
 ```
-创建课堂这步通过`onCreateClassroom`方法通知上层是否成功；课堂内断线事件会通过`onLiveVideoDisconnect`方法通知给上层也便做异常处理。课堂内的成员音视频事件都会通过`onMemStatusChange`方法回调到其他端（包括操作者的），event_id表示事件类型（开关摄像头等），ids表示触发事件的用户ID集合，其他端触发回调之后，可以根据事件类型，进行相应的处理，比如，收到开摄像头事件，就添加一个对应用户的渲染视图，收到关摄像头时间，就移除对应用户的渲染视图（详细用法可以参照demo）。
+创建课堂这步通过`onCreateClassroom`方法通知上层是否成功；课堂内断线事件会通过`onLiveVideoDisconnect`方法通知给上层也便做异常处理。课堂内的成员音视频事件都会通过`onMemStatusChange`方法回调到其他端（包括操作者的），event_id表示事件类型（开关摄像头等），ids表示触发事件的用户ID集合，其他端触发回调之后，可以根据事件类型，进行相应的处理，比如，收到开摄像头事件，就添加一个对应用户的渲染视图，收到关摄像头时间，就移除对应用户的渲染视图（详细用法可以参照demo）。当有人进出房间的时候，会通过`onMemberJoin`和`onMemberQuit`方法通知房间内所有成员；当老师销毁课堂的时候，会通过`onClassroomDestroy`方法通知房间内所有成员。
 
 
